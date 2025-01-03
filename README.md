@@ -8,6 +8,11 @@ This is a simple refactoring demo for a team presentation.
 - `cleaned-functional`: Contains the refactored app in a functional approach.
 - `cleaned-oop`: Contains the refactored app in an object-oriented approach.
 
+## Pens
+
+- [Tangled Example](https://codepen.io/smwoll/pen/GgKOmLO)
+- [Cleaned Up Functional Example](https://codepen.io/smwoll/pen/wBwPeEb)
+
 ## State Data
 
 The app's state data is a JSON file fetched from GH for the examples. This is intended to make all the code easy to copy into a codepen for examples and easy distribution.
