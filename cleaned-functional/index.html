@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tangled JS!!</title>
+</head>
+
+<body>
+  <header>
+    <h1>Drone Sightings in the US</h1>
+    <p>Click on a state to see its sightings count.</p>
+  </header>
+  <div id="app">
+    <div id="map"></div>
+
+    <div class="controls">
+      <label for="choropleth-toggle">Display Choropleth</label>
+      <input type="checkbox" name="choropleth" id="choropleth-toggle">
+    </div>
+    <div class="chloropleth-range">
+      <span>
+        Less
+      </span>
+      <span class="chloropleth-range__gradient"></span>
+      <span>
+        More
+      </span>
+    </div>
+    <div id="state-info-box" class="state-info-box"></div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
