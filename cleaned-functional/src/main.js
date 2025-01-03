@@ -29,15 +29,13 @@ async function getAndCacheStates() {
   return states;
 }
 
-async function createMap() {
+async function createMap(statesData) {
   const map = document.getElementById('map');
 
   // Add states grid list.
   const statesList = document.createElement('ul');
   statesList.classList.add('states-list');
   map.appendChild(statesList);
-
-  const statesData = await getAndCacheStates();
 
   // Determine the max number of sightings.
   const maxSightings = Math.max(
@@ -77,45 +75,52 @@ async function createMap() {
     stateSpan.textContent = state;
     stateButton.appendChild(stateSpan);
 
-    // Handle click on the state.
-    function handleStateClick() {
-      // Get the LI for this state.
-      const stateButton = document.querySelector(
-        `button[data-state="${state}"]`
-      );
-
-      // Remove the active class from all states.
-      document.querySelectorAll('.state-button').forEach((li) => {
-        li.classList.remove('active');
-      });
-
-      // Add the active class to this state.
-      stateButton.classList.add('active');
-
-      const infoBox = document.getElementById('state-info-box');
-      infoBox.innerHTML = '';
-
-      const stateName = document.createElement('h2');
-      stateName.textContent = statesData[state].name;
-      infoBox.appendChild(stateName);
-
-      const stateDetails = document.createElement('dl');
-      infoBox.appendChild(stateDetails);
-
-      const stateSightings = document.createElement('dt');
-      stateSightings.textContent = 'Sightings:';
-      stateDetails.appendChild(stateSightings);
-
-      const stateSightingsValue = document.createElement('dd');
-      stateSightingsValue.textContent = statesData[state].sightings;
-      stateDetails.appendChild(stateSightingsValue);
-    }
-
     // Add event listener to the button.
     stateButton.addEventListener('click', handleStateClick);
 
     stateLI.appendChild(stateButton);
   }
+}
+
+function populateInfoBox(stateData) {
+  const infoBox = document.getElementById('state-info-box');
+
+  const { name, sightings } = stateData;
+
+  const stateName = document.createElement('h2');
+  stateName.textContent = name;
+  infoBox.appendChild(stateName);
+
+  const stateDetails = document.createElement('dl');
+  infoBox.appendChild(stateDetails);
+
+  const stateSightings = document.createElement('dt');
+  stateSightings.textContent = 'Sightings:';
+  stateDetails.appendChild(stateSightings);
+
+  const stateSightingsValue = document.createElement('dd');
+  stateSightingsValue.textContent = sightings;
+  stateDetails.appendChild(stateSightingsValue);
+}
+
+// Handle click on the state.
+function handleStateClick(stateButton, statesData) {
+  const state = stateButton.dataset?.state;
+
+  if (!state || !statesData[state]) {
+    return;
+  }
+
+  // Remove the active class from all states.
+  document.querySelectorAll('.state-button').forEach((li) => {
+    li.classList.remove('active');
+  });
+
+  // Add the active class to this state.
+  stateButton.classList.add('active');
+
+  // Populate the info box with the state data.
+  populateInfoBox(statesData[state]);
 }
 
 function resetSelections() {
@@ -131,7 +136,6 @@ function resetInfoBox() {
 }
 
 function handleChoroplethToggle(event) {
-
   // Reset info box  and any selections when changing modes.
   resetInfoBox();
   resetSelections();
@@ -148,17 +152,32 @@ function handleChoroplethToggle(event) {
   rangeEl.hidden = !checked;
 }
 
-
-function setupEventListeners() {
+function setupEventListeners(statesData) {
   const choroplethCheckbox = document.getElementById('choropleth-toggle');
   choroplethCheckbox.addEventListener('change', handleChoroplethToggle);
+
+  const map = document.getElementById('map');
+
+  // Add a delegated listener for state button clicks.
+  map.addEventListener('click', (event) => {
+    const stateButton = event.target.closest('.state-button');
+
+    if (!stateButton) {
+      return;
+    }
+
+    resetSelections();
+    resetInfoBox();
+    handleStateClick(stateButton, statesData);
+  });
 }
 
 async function setupMapApplication() {
-  await createMap();
+  const statesData = await getAndCacheStates();
 
-  setupEventListeners();
-  
+  createMap(statesData);
+
+  setupEventListeners(statesData);
 }
 
 setupMapApplication();
