@@ -98,7 +98,7 @@ header {
 }
 
 /* Choropleth mode. */
-.choropleth-mode .state-button {
+[data-is-choropleth="true"] .state-button {
   /* Sightings var is a percentage used to set the alpha based upon the number. */
   --state-bg-color: hsla(var(--gradient-base) / var(--sightings, 0));
 }
