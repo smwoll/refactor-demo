@@ -1,0 +1,322 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color: hsl(0deg 0% 5.48%);
+  background-color: hsl(0deg 0% 100% / 87%);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* App vars. */
+  --app-hover-color: hsl(236.9deg 100% 65%);
+  --app-hover-text-color: hsl(0 0% 100%);
+  --state-bg-color: hsl(0deg 0% 100% / 50%);
+  --state-color: hsl(0 0% 30%);
+  --app-t-duration: 200ms;
+}
+
+* {
+  box-sizing: border-box;
+  margin: unset;
+  padding: unset;
+}
+
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  min-height: 100vh;
+}
+
+#app {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  width: 100%;
+}
+
+/* List that turns into a map on wider screens. */
+.states-list {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  list-style: none;
+  padding: unset;
+  margin: unset;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(10, auto);
+  gap: 8px;
+  /* Isolate stacking. */
+  isolation: isolate;
+}
+
+/* Individual state items. */
+.states-list li {
+  list-style: none;
+  padding: unset;
+  margin: unset;
+  position: relative;
+  display: flex;
+  place-content: center;
+  place-items: center;
+}
+
+/* State button. */
+.state-button {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--state-bg-color, #ddd);
+  border-radius: 100%;
+  color: var(--state-color);
+  border: 2px solid var(--state-color);
+  text-align: center;
+  cursor: pointer;
+  width: min(100%, 68px);
+  height: auto;
+  aspect-ratio: 1;
+  display: flex;
+  transition: background-color var(--app-t-duration) ease, border var(--app-t-duration) ease, color var(--app-t-duration) ease;
+  font-weight: 600;
+
+  &:is(:focus-visible, :hover, .active) {
+    color: var(--app-hover-text-color);
+    background-color: var(--app-hover-color);
+  }
+}
+
+/* Choropleth mode. */
+.choropleth-mode .state-button {
+  --state-bg-color: hsla(140deg 100% 50% / var(--sightings, 0));
+}
+
+/* Info Box. */
+
+.state-info-box {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.state-info-box:empty {
+ visibility: hidden;
+}
+
+
+
+
+/* Map Layout */
+.states-list {
+  /* Positioning each state on the grid */
+  .AL {
+    grid-area: 7 / 8;
+  }
+  .AK {
+    grid-area: 1 / 1;
+  }
+  .AZ {
+    grid-area: 6 / 3;
+  }
+  .AR {
+    grid-area: 6 / 6;
+  }
+  .CA {
+    grid-area: 5 / 2;
+  }
+  .CO {
+    grid-area: 5 / 4;
+  }
+  .CT {
+    grid-area: 4 / 11;
+  }
+  .DE {
+    grid-area: 5 / 11;
+  }
+  .FL {
+    grid-area: 8 / 10;
+  }
+  .GA {
+    grid-area: 7 / 9;
+  }
+  .HI {
+    grid-area: 8 / 1;
+  }
+  .ID {
+    grid-area: 3/3;
+  }
+  .IL {
+    grid-area: 3/7;
+  }
+  .IN {
+    grid-area: 4 / 7;
+  }
+  .IA {
+    grid-area: 4 / 6;
+  }
+  .KS {
+    grid-area: 6 / 5;
+  }
+  .KY {
+    grid-area: 5 / 7;
+  }
+  .LA {
+    grid-area: 7 / 6;
+  }
+  .ME {
+    grid-area: 1 / 12;
+  }
+  .MD {
+    grid-area: 5 / 10;
+  }
+  .MA {
+    grid-area: 3 / 11;
+  }
+  .MI {
+    grid-area: 3 / 8;
+  }
+  .MN {
+    grid-area: 3 / 6;
+  }
+  .MS {
+    grid-area: 7 / 7;
+  }
+  .MO {
+    grid-area: 5 / 6;
+  }
+  .MT {
+    grid-area: 3 / 4;
+  }
+  .NE {
+    grid-area: 5 / 5;
+  }
+  .NV {
+    grid-area: 4 / 3;
+  }
+  .NH {
+    grid-area: 2 / 12;
+  }
+  .NJ {
+    grid-area: 4 / 10;
+  }
+  .NM {
+    grid-area: 6 / 4;
+  }
+  .NY {
+    grid-area: 3 / 10;
+  }
+  .NC {
+    grid-area: 6 / 8;
+  }
+  .ND {
+    grid-area: 3/5;
+  }
+  .OH {
+    grid-area: 4 / 8;
+  }
+  .OK {
+    grid-area: 7 / 5;
+  }
+  .OR {
+    grid-area: 4/2;
+  }
+  .PA {
+    grid-area: 4 / 9;
+  }
+  .RI {
+    grid-area: 4 / 12;
+  }
+  .SC {
+    grid-area: 6 / 9;
+  }
+  .SD {
+    grid-area: 4 / 5;
+  }
+  .TN {
+    grid-area: 6 / 7;
+  }
+  .TX {
+    grid-area: 8 / 5;
+  }
+  .UT {
+    grid-area: 5 / 3;
+  }
+  .VT {
+    grid-area: 2 / 11;
+  }
+  .VA {
+    grid-area: 5 / 9;
+  }
+  .WA {
+    grid-area: 3 / 2;
+  }
+  .WV {
+    grid-area: 5 / 8;
+  }
+  .WI {
+    grid-area: 2 / 7;
+  }
+  .WY {
+    grid-area: 4 / 4;
+  }
+
+  /* Taxation without representation */
+  .DC {
+    grid-area: 6 / 10;
+  }
+
+  /* Spacer. */
+  &:after {
+    content: '';
+    position: relative;
+    display: block;
+    grid-area: 9 / 1;
+    height: 22px;
+  }
+
+  /* US Territories */
+  .AS {
+    grid-area: 10 / 4;
+  }
+  .FM {
+    grid-area: 10 / 7;
+  }
+  .GU {
+    grid-area: 10 / 2;
+  }
+  .MH {
+    grid-area: 10 / 8;
+  }
+  .MP {
+    grid-area: 10 / 3;
+  }
+  .PW {
+    grid-area: 10 / 6;
+  }
+  .PR {
+    grid-area: 10 / 10;
+  }
+  .VI {
+    grid-area: 10 / 11;
+  }
+}
+
+/* UTILS. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
