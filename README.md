@@ -12,6 +12,7 @@ This is a simple refactoring demo for a team presentation.
 
 - [Tangled Example](https://codepen.io/smwoll/pen/GgKOmLO)
 - [Cleaned Up Functional Example](https://codepen.io/smwoll/pen/wBwPeEb)
+- [Cleaned Up OOP Example](https://codepen.io/smwoll/pen/MYgOvoo)
 
 ## State Data
 
