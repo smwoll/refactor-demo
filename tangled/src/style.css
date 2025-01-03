@@ -17,6 +17,7 @@
   --state-bg-color: hsl(0deg 0% 100% / 50%);
   --state-color: hsl(0 0% 30%);
   --app-t-duration: 200ms;
+  --gradient-base: 140deg 100% 50%;
 }
 
 * {
@@ -34,10 +35,14 @@ body {
   min-height: 100vh;
 }
 
+header {
+  margin-block: 18px;
+  text-align: center;
+}
+
 #app {
-  max-width: 1000px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
   width: 100%;
 }
@@ -49,7 +54,7 @@ body {
   height: 100%;
   list-style: none;
   padding: unset;
-  margin: unset;
+  margin-block: 18px;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(10, auto);
   gap: 8px;
@@ -94,23 +99,61 @@ body {
 
 /* Choropleth mode. */
 .choropleth-mode .state-button {
-  --state-bg-color: hsla(140deg 100% 50% / var(--sightings, 0));
+  /* Sightings var is a percentage used to set the alpha based upon the number. */
+  --state-bg-color: hsla(var(--gradient-base) / var(--sightings, 0));
+}
+
+/* Range display gradient. */
+.chloropleth-range {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: auto 1fr auto;
+  place-items: center;
+  margin-block: 8px;
+  margin-inline: auto;
+  max-width: 400px;
+  padding: 18px;
+  width: 100%;
+  font-size: 0.8em;
+  font-weight: 600;
+
+  & .chloropleth-range__gradient {
+    background: linear-gradient(to right, hsla(var(--gradient-base) / 0), hsla(var(--gradient-base) / 1));
+    border-radius: 8px;
+    height: 16px;
+    width: 100%;
+  }
 }
 
 /* Info Box. */
 
 .state-info-box {
-  display: block;
-  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--state-color);
+  display: grid;
+  gap: 8px;
+  margin-block: 18px;
+  margin-inline: auto;
   max-width: 400px;
-  margin: 0 auto;
+  padding: 18px;
+  width: 100%;
+
+  & dl {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: auto 1fr;
+    margin: 0;
+    padding: 0;
+  }
+
+  & dt {
+    font-weight: 600;
+  }
 }
 
 .state-info-box:empty {
  visibility: hidden;
 }
-
-
 
 
 /* Map Layout */

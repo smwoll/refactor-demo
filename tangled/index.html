@@ -13,12 +13,24 @@
     <h1>Drone Sightings in the US</h1>
     <p>Click on a country to see its sightings count.</p>
   </header>
-  <div id="app"></div>
-  <div class="controls">
-    <label for="choropleth-toggle">Display Choropleth</label>
-    <input type="checkbox" name="choropleth" id="choropleth-toggle">
+  <div id="app">
+    <div id="map"></div>
+
+    <div class="controls">
+      <label for="choropleth-toggle">Display Choropleth</label>
+      <input type="checkbox" name="choropleth" id="choropleth-toggle">
+    </div>
+    <div class="chloropleth-range">
+      <span>
+        Less
+      </span>
+      <span class="chloropleth-range__gradient"></span>
+      <span>
+        More
+      </span>
+    </div>
+    <div id="state-info-box" class="state-info-box"></div>
   </div>
-  <div id="state-info-box" class="state-info-box"></div>
   <script type="module" src="/src/main.js"></script>
 </body>
 
