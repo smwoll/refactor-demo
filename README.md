@@ -10,7 +10,7 @@ This is a simple refactoring demo for a team presentation.
 
 ## State Data
 
-The app's state data is a JSON file fetched from GH for the examples.
+The app's state data is a JSON file fetched from GH for the examples. This is intended to make all the code easy to copy into a codepen for examples and easy distribution.
 
 ## Install and Run
 
