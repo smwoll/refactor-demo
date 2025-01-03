@@ -15,6 +15,7 @@ async function getAndCacheStates() {
     return JSON.parse(cached);
   }
 
+  // For example purposes, we fetch the states data from a JSON file hosted in the GH repo.
   const response = await fetch('https://raw.githubusercontent.com/smwoll/refactor-demo/refs/heads/main/state-data.json');
   const states = await response.json();
 
