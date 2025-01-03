@@ -1,6 +1,29 @@
 import './style.css';
 
-import STATES from '../../state-data.json';
+/**
+ * Get and cache states data.
+ * For example purposes, we will leave this as is.
+ *
+ * @returns {Promise<Object>} The states data.
+ */
+async function getAndCacheStates() {
+
+  // Check if states are in sessionStorage.
+  const cached = sessionStorage.getItem('drone-app-messy-example-states');
+
+  if (cached) {
+    return JSON.parse(cached);
+  }
+
+  const response = await fetch('https://raw.githubusercontent.com/smwoll/refactor-demo/refs/heads/main/state-data.json');
+  const states = await response.json();
+
+  // Cache in sessionStorage.
+  sessionStorage.setItem('drone-app-messy-example-states', JSON.stringify(states));
+
+  return states;
+}
+
 
 function createMap() {
   const map = document.getElementById('map');
@@ -11,7 +34,10 @@ function createMap() {
   map.appendChild(statesList);
 }
 
-function updateMap() {
+async function updateMap() {
+
+  const statesData = await getAndCacheStates();
+
   const statesList = document.querySelector('.states-list');
 
   const infoBox = document.getElementById('state-info-box');
@@ -23,7 +49,7 @@ function updateMap() {
   infoBox.innerHTML = '';
 
   // Add a state LI for each state.
-  for (const state in STATES) {
+  for (const state in statesData) {
     const stateLI = document.createElement('li');
     stateLI.dataset.state = state;
     stateLI.classList.add('state-item');
@@ -39,7 +65,7 @@ function updateMap() {
     // Add screen reader text to the button.
     const buttonSRText = document.createElement('span');
     buttonSRText.classList.add('sr-only');
-    buttonSRText.textContent = `Click to view ${STATES[state].name}`;
+    buttonSRText.textContent = `Click to view ${statesData[state].name}`;
     stateButton.appendChild(buttonSRText);
 
     // Add a decorative span with the state abbreviation.
@@ -68,7 +94,7 @@ function updateMap() {
       infoBox.innerHTML = '';
 
       const stateName = document.createElement('h2');
-      stateName.textContent = STATES[state].name;
+      stateName.textContent = statesData[state].name;
       infoBox.appendChild(stateName);
 
       const stateDetails = document.createElement('dl');
@@ -79,7 +105,7 @@ function updateMap() {
       stateDetails.appendChild(stateSightings);
 
       const stateSightingsValue = document.createElement('dd');
-      stateSightingsValue.textContent = STATES[state].sightings;
+      stateSightingsValue.textContent = statesData[state].sightings;
       stateDetails.appendChild(stateSightingsValue);
     }
 
@@ -97,15 +123,15 @@ function updateMap() {
     console.log('is chloro!');
     // Determine the max number of sightings.
     const maxSightings = Math.max(
-      ...Object.values(STATES).map((state) => state.sightings)
+      ...Object.values(statesData).map((state) => state.sightings)
     );
 
     // Set % var on each state LI.
-    for (const state in STATES) {
+    for (const state in statesData) {
       const stateLI = document.querySelector(`li[data-state="${state}"]`);
       stateLI.style.setProperty(
         '--sightings',
-        `${(STATES[state].sightings / maxSightings) * 100}%`
+        `${(statesData[state].sightings / maxSightings) * 100}%`
       );
     }
 
