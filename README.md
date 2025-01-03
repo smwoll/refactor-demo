@@ -38,3 +38,4 @@ npm run dev
 4. Lift up state
    1. Use vars for state
    2. Use a higher level data attribute to track state, can style from that vs updating and toggling classes per element
+5. Use event delegation, reducing the number of event listeners
