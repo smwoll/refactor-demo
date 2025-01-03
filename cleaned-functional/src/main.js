@@ -118,6 +118,13 @@ async function createMap() {
   }
 }
 
+function resetSelections() {
+  // Remove active class from all states.
+  document.querySelectorAll('.state-button.active').forEach((li) => {
+    li.classList.remove('active');
+  });
+}
+
 function resetInfoBox() {
   const infoBox = document.getElementById('state-info-box');
   infoBox.innerHTML = '';
@@ -125,8 +132,9 @@ function resetInfoBox() {
 
 function handleChoroplethToggle(event) {
 
-  // Reset info box when changing modes.
+  // Reset info box  and any selections when changing modes.
   resetInfoBox();
+  resetSelections();
 
   const app = document.getElementById('app');
 
