@@ -104,7 +104,7 @@ header {
 }
 
 /* Range display gradient. */
-.chloropleth-range {
+.chloropleth-range:not([hidden]) {
   display: grid;
   gap: 8px;
   grid-template-columns: auto 1fr auto;

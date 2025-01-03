@@ -110,9 +110,15 @@ function updateMap() {
     }
 
     choroplethCheckbox.checked = true;
+
+    const rangeEl = document.querySelector('.chloropleth-range');
+    rangeEl.hidden = false;
   } else {
     console.log('not chloro!');
     choroplethCheckbox.checked = false;
+
+    const rangeEl = document.querySelector('.chloropleth-range');
+    rangeEl.hidden = true;
   }
 
   // Add event listener to toggle choropleth.
