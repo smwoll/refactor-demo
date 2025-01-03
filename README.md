@@ -44,3 +44,11 @@ npm run dev
    1. Use vars for state
    2. Use a higher level data attribute to track state, can style from that vs updating and toggling classes per element
 5. Use event delegation, reducing the number of event listeners
+
+### Questions to Ask
+
+1. What are the steps in the application? What is the "order of events?"
+2. What state are we concerned with?
+3. Are there ways we can "do less?" Anything that can be set up or done once rather than multiple times?
+4. Can any logic be unified or simplified?
+5. Are there any memory leaks? Are there opportunities to clean up after ourselves or reduce event listener usage?
